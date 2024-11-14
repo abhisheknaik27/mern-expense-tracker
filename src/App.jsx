@@ -5,10 +5,26 @@ const App = () => {
   const [name, setName] = useState('');
   const [timeDate, setTimeDate] = useState('');
   const [description, setDescription] = useState('');
+
+  function addNewTransaction (e) {
+    e.preventDefault();
+    const url = import.meta.env.VITE_APP_API_URL+'/transaction';
+    fetch(url, {
+      method: 'POST',
+      headers: {'Content-type': 'application/json'},
+      body: JSON.stringify({name, description, timeDate})
+    })
+     .then(async (res) => {
+      const json = await res.json();
+      console.log(json);
+     });
+     
+    console.log(url);
+  }
   return (
     <main>
       <h1>Rs. 400<span>.00</span></h1>
-      <form>
+      <form onClick={addNewTransaction}>
         <div className='basic'>
           <input 
             value={name} 
