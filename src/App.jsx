@@ -9,17 +9,26 @@ const App = () => {
   function addNewTransaction (e) {
     e.preventDefault();
     const url = import.meta.env.VITE_APP_API_URL+'/transaction';
+    
+    const price = name.split(' ')[0];
+    
     fetch(url, {
       method: 'POST',
       headers: {'Content-type': 'application/json'},
-      body: JSON.stringify({name, description, timeDate})
+      body: JSON.stringify({
+        price,
+        name:name.substring(price.length+1), 
+        description, 
+        timeDate
+      })
     })
-     .then(async (res) => {
-      const json = await res.json();
-      console.log(json);
+     .then(response => {
+      response.json().then(json => {
+        console.log(json);
+      })
      });
      
-    console.log(url);
+    
   }
   return (
     <main>
