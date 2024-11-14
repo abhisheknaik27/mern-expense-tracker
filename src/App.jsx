@@ -2,17 +2,28 @@ import React, { useState } from 'react'
 import './App.css';
 
 const App = () => {
-
+  const [name, setName] = useState('');
+  const [timeDate, setTimeDate] = useState('');
+  const [description, setDescription] = useState('');
   return (
     <main>
       <h1>Rs. 400<span>.00</span></h1>
       <form>
         <div className='basic'>
-          <input type="text" placeholder='Enter Expense to Track'/>
-          <input type="datetime-local" />
+          <input 
+            value={name} 
+            onChange={e => setName(e.target.value)} 
+            type="text" placeholder='Enter Expense to Track'/>
+          <input 
+          value={timeDate} 
+          onChange={e => setTimeDate(e.target.value)} 
+          type="datetime-local" />
         </div>
         <div className="description">
-          <input type="text" placeholder='Description'/>
+          <input 
+            value={description} 
+            onChange={e => setDescription(e.target.value)} 
+            type="text" placeholder='Description'/>
         </div>
         <button type='submit'>Add New Transaction</button>
       </form>
