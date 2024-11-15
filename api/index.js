@@ -3,7 +3,7 @@ const cors = require('cors');
 require('dotenv').config();
 const TransactionModel = require('./models/transaction');
 
-const { default: mongoose } = require('mongoose');
+const { default: mongoose, connect } = require('mongoose');
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -24,4 +24,12 @@ app.post('/api/transaction', async (req, res) => {
     });
     res.json(transaction);
 })
+
+
+app.get('/api/transactions', async (req, res) => {
+    await mongoose.connect(process.env.MONGO_URL);
+    const transactions = await TransactionModel.find({});
+    res.json(transactions);
+});
+
 app.listen(4000);

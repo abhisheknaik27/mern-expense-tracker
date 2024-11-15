@@ -2,17 +2,37 @@
   box-sizing: border-box;
 }
 body{
-  background-color: black;
-  color: wheat;
+  background-color: #282828	;
+  color: #E8E8E8;
+  font-family: Arial, Helvetica, sans-serif;
+  
 }
 main{
-  max-width: 360px;
+  max-width: 500px;
   margin: 30px auto;
 }
-h1{
+div.header h1{
+  font-size: 2rem;
+  font-weight: 800;
+  text-align: center;
+  padding: 5px;
+}
+
+h2{
+  border-top: 2px solid #30313d;
+  margin-top: 10px;
+  padding-top: 10px;
   text-align: center;
   color: white;
   margin: 0;
+  font-size: 2.3rem;
+  font-weight: 500;
+}
+h1 span, h2 span{
+  font-size: 1rem;
+  vertical-align: bottom;
+  display: inline-block;
+  margin-bottom: 6px;
 }
 form{
   margin-top: 20px;
@@ -24,6 +44,7 @@ form input{
   border: 2px solid #30313d;
   padding: 2px 5px;
   border-radius: 5px;
+  font-size: 1.2rem;
 }
 form input[type="datetime-local"]{
   color: #777;
@@ -35,11 +56,12 @@ form div.basic{
 }
 form button{
   width: 100%;
-  margin-top: 5px;
+  margin-top: 10px;
   border: 0;
   border-radius: 5px;
   padding: 5px;
   background-color: #ddd;
+  font-size: 1.2rem;
 }
 
 div.transactions{
@@ -55,15 +77,18 @@ div.transaction:first-child{
   border-top: 0;
 }
 div.transaction div.name{
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }
 div.transaction div.description{
-  font-size: 0.7rem;
+  font-size: 0.9rem;
   color: #888;
 }
 
 div.right{
   text-align: right;
+}
+div.transaction div.price{
+  font-size: 1.4rem;
 }
 div.price.green{
   color: #1c1;
@@ -72,6 +97,6 @@ div.price.red{
   color: #c11;
 }
 div.transaction div.datetime{
-  font-size: 0.7rem;
+  font-size: 0.9rem;
   color: #888;
 }

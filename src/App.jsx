@@ -1,10 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './App.css';
 
 const App = () => {
   const [name, setName] = useState('');
   const [timeDate, setTimeDate] = useState('');
   const [description, setDescription] = useState('');
+  const [transactions, setTransactions] = useState([]);
+
+  useEffect(() => {
+    getTransactions().then(transactions => {
+      setTransactions(transactions);
+    })
+  }, []);
+
+  async function getTransactions(){
+    const url = import.meta.env.VITE_APP_API_URL+'/transactions';
+    const response = await fetch(url);
+    return await response.json();
+  }
 
   function addNewTransaction (e) {
     e.preventDefault();
@@ -24,13 +37,25 @@ const App = () => {
     })
      .then(response => {
       response.json().then(json => {
+        setName('');
+        setTimeDate('');
+        setDescription('');
         console.log(json);
+
       })
      });
   }
+  let balance = 0;
+  for(const t of transactions){
+    balance = balance + t.price;
+  }
+  balance = balance.toFixed(2);
+  const fraction = balance.split('.')[1];
+  balance = balance.split('.')[0];
   return (
     <main>
-      <h1>Rs. 400<span>.00</span></h1>
+      <div className='header'> <h1>Money Tracker App <span>(DB Storage)</span></h1></div>
+      <h2>Rs. {balance}<span>{fraction}</span></h2>
       <form onSubmit={addNewTransaction}>
         <div className='basic'>
           <input 
@@ -51,40 +76,22 @@ const App = () => {
         <button value='submit' type='submit'>Add New Transaction</button>
       </form>
 
-      <div className="transactions">
-        <div className="transaction">
-          <div className="left">
-            <div className="name">Samsung LED TV</div>
-            <div className="description">Bought in diwali sale</div>
-          </div>
-          <div className="right">
-            <div className="price red">- Rs. 500</div>
-            <div className="datetime">2022-12-18 15:45</div>
-          </div>
-        </div>
+      
 
-        <div className="transaction">
-          <div className="left">
-            <div className="name">Samsung LED TV</div>
-            <div className="description">Bought in diwali sale</div>
-          </div>
-          <div className="right">
-            <div className="price green">+ Rs. 500</div>
-            <div className="datetime">2022-12-18 15:45</div>
-          </div>
+      {transactions.length > 0 && transactions.map(t => (
+          <div key={t._id} className="transactions">
+            <div className="transaction">
+              <div className="left">
+                <div className="name">{t.name}</div>
+                <div className="description">{t.description}</div>
+              </div>
+              <div className="right">
+                <div className={"price " +(t.price<0?'red':'green')}>{t.price}</div>
+                <div className="datetime">{t.timeDate}</div>
+              </div>
+          </div>  
         </div>
-
-        <div className="transaction">
-          <div className="left">
-            <div className="name">SIphone 16</div>
-            <div className="description">Bought in diwali sale</div>
-          </div>
-          <div className="right">
-            <div className="price green">+Rs. 500</div>
-            <div className="datetime">2022-12-18 15:45</div>
-          </div>
-        </div>
-      </div>
+      ))}
 
     </main>
   )
