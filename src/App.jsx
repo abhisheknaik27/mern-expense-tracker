@@ -27,18 +27,16 @@ const App = () => {
         console.log(json);
       })
      });
-     
-    
   }
   return (
     <main>
       <h1>Rs. 400<span>.00</span></h1>
-      <form onClick={addNewTransaction}>
+      <form onSubmit={addNewTransaction}>
         <div className='basic'>
           <input 
             value={name} 
             onChange={e => setName(e.target.value)} 
-            type="text" placeholder='Enter Expense to Track'/>
+            type="text" placeholder='+200 New Item'/>
           <input 
           value={timeDate} 
           onChange={e => setTimeDate(e.target.value)} 
@@ -50,7 +48,7 @@ const App = () => {
             onChange={e => setDescription(e.target.value)} 
             type="text" placeholder='Description'/>
         </div>
-        <button type='submit'>Add New Transaction</button>
+        <button value='submit' type='submit'>Add New Transaction</button>
       </form>
 
       <div className="transactions">
